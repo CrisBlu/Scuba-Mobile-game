@@ -9,10 +9,11 @@ public class movement : MonoBehaviour
     public float FALL_SPEED;
     public float acceleration;
     public float decceleration;
+    public bool falling;
 
 
     public float speed;
-    bool falling = true;
+    
     Vector2 direction;
     Vector2 height;
 
@@ -20,19 +21,14 @@ public class movement : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         speed = 0;
+        falling = true;
 }
 
     void FixedUpdate()
     {
-        //falling
-        if (falling == true)
-        {
-            //direction.y = -1;
-            
-        }
 
 
-        //May change to MoveVelocity later
+        //May change to  later
         //If a touch is detected
         if (Input.touchCount > 0)
         {
@@ -48,6 +44,13 @@ public class movement : MonoBehaviour
             //direction = new Vector2(0f, 0f);
             direction.x = ((Screen.width / 2) - touchPosition.x > 0) ? -1 : 1;
 
+            if (falling)
+            {
+                FallingMotion();
+            }else{
+                RisingMotion();
+            }
+
         }
         else
         {
@@ -56,6 +59,22 @@ public class movement : MonoBehaviour
                  
         }
 
-        rigidBody.MovePosition(rigidBody.position + direction * Time.deltaTime * speed);
+        
+
+       
+        
+    }
+
+    void RisingMotion()
+    {
+        //Make turn speed slower somehow
+        
+        rigidBody.velocity = (direction * Time.deltaTime * speed);
+        
+    }
+
+    void FallingMotion()
+    {
+        rigidBody.velocity = (direction * Time.deltaTime * speed);
     }
 }

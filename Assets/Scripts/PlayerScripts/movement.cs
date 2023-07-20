@@ -12,15 +12,14 @@ public class movement : MonoBehaviour
     public bool falling;
 
 
-    public float speed;
-    
+    public Vector2 speed;
     Vector2 direction;
     Vector2 height;
 
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        speed = 0;
+        speed = new Vector2(0, 0);
         falling = true;
 }
 
@@ -32,11 +31,13 @@ public class movement : MonoBehaviour
         //If a touch is detected
         if (Input.touchCount > 0)
         {
-            //Is speed less than MAX_SPEED? then add 1 to speed, if not then speed is equal to MAX_SPEED
-            speed = (speed < MAX_SPEED) ? speed+acceleration : MAX_SPEED;
+            //Is speed less than MAX_SPEED? then add acceleration to speed, if not then speed is equal to MAX_SPEED
+            
+            
 
             Touch touch = Input.GetTouch(0);
             Vector2 touchPosition = touch.position;
+            
 
             //Get whether the touch was on the left or right side of the screen and set direction 
 
@@ -44,37 +45,70 @@ public class movement : MonoBehaviour
             //direction = new Vector2(0f, 0f);
             direction.x = ((Screen.width / 2) - touchPosition.x > 0) ? -1 : 1;
 
-            if (falling)
-            {
-                FallingMotion();
-            }else{
-                RisingMotion();
-            }
+            //Calculate intended speed
+            speed = CalculateSpeed(speed, direction.x);
+            
 
         }
-        else
+    else
         {
-            //Slide to a stop
-            speed = (speed > 0f) ? speed - decceleration : 0f;
+            //Slide to a stop; pull speed to 0 when no direction is selected
+            
+            if (speed.x > 0f) //If speed is greater than 0
+            {
+                //Decrease Speed by decceleration
+                speed.x = speed.x - decceleration;
+            }
+            else if (speed.x < 0f) //If speed is less than 0
+            {
+                //Increase Speed by decceleration
+                speed.x = speed.x + decceleration;
+            }
+
+
                  
         }
 
-        
 
+        //Apply speed to rigidbody
+        rigidBody.velocity = (speed * Time.deltaTime);
+    
        
         
     }
 
-    void RisingMotion()
-    {
-        //Make turn speed slower somehow
-        
-        rigidBody.velocity = (direction * Time.deltaTime * speed);
+
+    Vector2 CalculateSpeed(Vector2 speed, float direction){
+        float motion;
+
+        if (falling)
+        {
+            //Motion is noted as the absolute value of speed
+            motion = Mathf.Abs(speed.x);
+            
+            //Is motion less than MAX_SPEED? then add acceleration to motion, if not then motion is equal to MAX_SPEED
+            motion = (motion < MAX_SPEED) ? motion + acceleration : MAX_SPEED;
+
+            //Create vector with motion as x
+            speed = new Vector2(motion * direction, 0f);
+        }
+        else
+        {
+            //Motion is noted as equal to speed
+            motion = speed.x;
+
+            //Motion increases by acceleration times direction, this allows for a non instant turn
+            motion += acceleration * direction;
+
+            //If the absolute value of motion goes over the max speed, motion is max speed in the right direction; otherwise it's just motion = motion
+            motion = (Mathf.Abs(motion) > MAX_SPEED) ? MAX_SPEED * direction: motion;
+
+            //Create vector with motion as x
+            speed = new Vector2(motion, 0f);
+        }
+     
+        return speed;
         
     }
 
-    void FallingMotion()
-    {
-        rigidBody.velocity = (direction * Time.deltaTime * speed);
-    }
 }

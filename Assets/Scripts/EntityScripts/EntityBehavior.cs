@@ -12,7 +12,7 @@ public class EntityBehavior : MonoBehaviour
     }
 
     protected void EntityCollide(){
-        PlayerCollisionScript.PlayerCollide();
+        PlayerCollisionScript.PlayerScore();
         Destroy(gameObject);
     }
 }

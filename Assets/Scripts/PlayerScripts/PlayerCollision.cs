@@ -18,7 +18,7 @@ public class PlayerCollision : MonoBehaviour
 
     //Player Values to track in script
     public int score = 0;
-    public bool gassedUp = false;
+    public bool gassedUp;
     public float recoveringFrames;
     bool recovering = false;
     

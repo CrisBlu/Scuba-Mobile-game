@@ -46,7 +46,7 @@ public class TimerScript : MonoBehaviour
 
         //Vector is now set by taking the deltatime and mutiplying to to be a percentage of 1
         //This way the bubble will decrease proportinal to the air left
-        maskDown = new Vector2(0, (damage * bubbleUnit * -1));
+        maskDown = new Vector2(0, (damage * bubbleUnit * -2));
 
         //Air Bubble Mask can move down to y: 0 before bubble is no longer visible
         bubbleMask.Translate(maskDown, gameObject.transform);

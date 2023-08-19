@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 
 public class movement : MonoBehaviour
 {
@@ -21,13 +23,12 @@ public class movement : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         speed = new Vector2(0, 0);
         falling = true;
-}
+    }
 
     void FixedUpdate()
     {
 
 
-        //May change to  later
         //If a touch is detected
         if (Input.touchCount > 0)
         {
@@ -73,7 +74,6 @@ public class movement : MonoBehaviour
         //Apply speed to rigidbody
         rigidBody.velocity = (speed * Time.deltaTime);
     
-       
         
     }
 
@@ -108,7 +108,8 @@ public class movement : MonoBehaviour
         }
      
         return speed;
-        
     }
+        
+    
 
 }

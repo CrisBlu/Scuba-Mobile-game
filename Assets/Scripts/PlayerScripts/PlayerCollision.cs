@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -21,10 +22,14 @@ public class PlayerCollision : MonoBehaviour
     public bool gassedUp;
     public float recoveringFrames;
     bool recovering = false;
-    
+
+    //Tilemap reference
+    public GameObject tilemapGameObject;
+    public Tilemap tilemap;
 
     void Start(){
        playerTimer = gameObject.GetComponent<TimerScript>();
+
     }
 
     public void PlayerScore()
@@ -58,6 +63,22 @@ public class PlayerCollision : MonoBehaviour
 
         Debug.Log("Recovering Done");
         recovering = false;
+    }
+
+    //Code to destroy terrian, not a clue where this should go
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("touch");
+        if (tilemap != null && tilemapGameObject == collision.gameObject)
+        {
+            Debug.Log("touches");
+            foreach (ContactPoint2D hit in collision.contacts)
+            {
+                Vector3 hitPosition = transform.position + new Vector3(0f, -0.5f, 0f);
+                Debug.Log(collision.transform.position);
+                tilemap.SetTile(tilemap.WorldToCell(hitPosition), null);
+            }
+        }
     }
 
 

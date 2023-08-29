@@ -16,9 +16,14 @@ public class EnemyCollision : MonoBehaviour
         playerCollisionScript = GameObject.Find("Hero").GetComponent<PlayerCollision>();
     }
 
-    public void OnTriggerEnter2D()
+    //Refer to your notes and change the collision based on this function's input
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        EntityCollide(attackPower);
+        //Temporary measure
+        if(other.name == "Hero")
+        {
+            EntityCollide(attackPower);
+        }
     }
 
 

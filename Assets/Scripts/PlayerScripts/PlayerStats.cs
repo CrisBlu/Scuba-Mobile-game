@@ -12,6 +12,9 @@ public class PlayerStats : MonoBehaviour
 
     */
 
-    //[HideInInspector]
+    [HideInInspector]
     public bool gassedUp = false;
+    public int gasPips = 6;
+    
+
 }

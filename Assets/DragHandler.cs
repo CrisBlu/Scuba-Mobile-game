@@ -18,6 +18,7 @@ public class DragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
     //THIS IS TEMPORARY, MOVE THIS TO A DIFFERENT SCRIPT OR I'LL GUT YOU
     public int DASH_SPEED;
     public movement script;
+    [SerializeField] PlayerStats statsScript;
     
  
     public void OnDrag(PointerEventData _EventData)
@@ -44,6 +45,9 @@ public class DragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         //Turn off movement script to not interfere with dash (DO NOT FUCKING KEEP IT LIKE THIS, MERGE MOVEMENT AND DASHING INTO ONE UNIVERSAL SCRIPT)
         script.enabled = false;
 
+        //flip dash bool
+        statsScript.gassedUp = true;
+
         //Set rigidBody velocity to equal dash vector for .2 seconds, then set it back to 0
         rigidBody.velocity = dashVector;
         yield return new WaitForSeconds(.2f);
@@ -51,7 +55,12 @@ public class DragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
 
         //Turn back on the movement script and turn back on gravity
         script.enabled = true;
-        rigidBody.gravityScale = 1;
+
+        //Make this a constant in player stats
+        rigidBody.gravityScale = 3;
+
+        //Flip dash bool back
+        statsScript.gassedUp = false;
         
     }
 

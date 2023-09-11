@@ -11,7 +11,8 @@ public class GasDrawer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DrawGasPip(4f);
+        //Should be a variable in playerStats
+        DrawGasPip(5f);
     }
 
     public void DrawGasPip(float gasPips)

@@ -25,6 +25,7 @@ public class GasDrawer : MonoBehaviour
 
             currentGasPip.transform.localScale =  new Vector2(1f, (1/gasPips));
 
+            //The -70 is arbitrary and doesn't work for all number of gas pips, find an algorithm or solution that does
             float gasPipPosition = (meterSize.y * i/gasPips) - 70f;
             currentGasPip.transform.localPosition = new Vector2(0f, gasPipPosition);
         }

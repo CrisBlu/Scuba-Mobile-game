@@ -32,7 +32,11 @@ public class DragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         Debug.Log("norm + " + swipeVector);
         Vector2 dashVector = swipeVector * DASH_SPEED;
 
-       StartCoroutine(Dash(dashVector));
+        if(statsScript.GasPips != 0)
+        {
+            StartCoroutine(Dash(dashVector));
+        }
+            
        
 
     }
@@ -47,6 +51,7 @@ public class DragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
 
         //flip dash bool
         statsScript.gassedUp = true;
+        statsScript.GasPips -= 1f;
 
         //Set rigidBody velocity to equal dash vector for .2 seconds, then set it back to 0
         rigidBody.velocity = dashVector;

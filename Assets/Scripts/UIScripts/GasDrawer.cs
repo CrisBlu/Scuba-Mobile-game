@@ -6,13 +6,14 @@ public class GasDrawer : MonoBehaviour
 {
     [SerializeField] GameObject gasPip;
     [SerializeField] RectTransform gasMeter;
+    [SerializeField] PlayerStats playerStatsScript;
     
 
     // Start is called before the first frame update
     void Start()
     {
         //Should be a variable in playerStats
-        DrawGasPip(5f);
+        DrawGasPip(playerStatsScript.GasPips);
     }
 
     public void DrawGasPip(float gasPips)
@@ -29,6 +30,11 @@ public class GasDrawer : MonoBehaviour
             float gasPipPosition = (meterSize.y * i/gasPips) - 70f;
             currentGasPip.transform.localPosition = new Vector2(0f, gasPipPosition);
         }
+    }
+
+    public void RemoveGasPip(float usedGasPip)
+    {
+        Destroy(transform.GetChild((int)usedGasPip).gameObject);
     }
 
 }

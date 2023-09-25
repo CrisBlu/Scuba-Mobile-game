@@ -109,6 +109,11 @@ public class movement : MonoBehaviour
      
         return speed;
     }
+
+    public void RiseUp(){
+        rigidBody.gravityScale *= -1;
+        falling = false;
+    }
         
     
 

@@ -16,10 +16,11 @@ public class PlayerCollision : MonoBehaviour
     //Player Values to reference
     TimerScript playerTimer;
 
+    [SerializeField] PlayerStats playerStats;
+
 
     //Player Values to track in script
     public int score = 0;
-    public bool gassedUp;
     public float recoveringFrames;
     bool recovering = false;
 
@@ -66,18 +67,42 @@ public class PlayerCollision : MonoBehaviour
     }
 
     //Code to destroy terrian, not a clue where this should go
-    void OnCollisionEnter2D(Collision2D collision)
+    /*void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("touch");
-        if (tilemap != null && tilemapGameObject == collision.gameObject)
+        Vector2 hitPosition = Vector3.zero;
+        if (tilemap != null && tilemapGameObject == collision.gameObject && playerStats.gassedUp)
         {
+            
             Debug.Log("touches");
             foreach (ContactPoint2D hit in collision.contacts)
             {
-                Vector3 hitPosition = transform.position + new Vector3(0f, -0.5f, 0f);
-                Debug.Log(collision.transform.position);
+                hitPosition.x = transform.position.x + playerStats.DashDirection.x;
+                hitPosition.y = transform.position.y + playerStats.DashDirection.y;
+                Debug.Log(hitPosition);
                 tilemap.SetTile(tilemap.WorldToCell(hitPosition), null);
             }
+        }
+    }*/
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        Debug.Log("touch");
+        Vector2 hitPosition = Vector3.zero;
+        if (tilemap != null && tilemapGameObject == other.gameObject && playerStats.gassedUp)
+        {
+            
+            Debug.Log("touches");
+            Vector2 contact = other.ClosestPoint(transform.position);
+            
+            if(playerStats.DashDirection.x > playerStats.DashDirection.y){
+                contact.x += playerStats.DashDirection.x;
+            }else{
+                contact.y += playerStats.DashDirection.y;
+            }
+            Debug.Log(hitPosition);
+            tilemap.SetTile(tilemap.WorldToCell(contact), null);
+            
         }
     }
 

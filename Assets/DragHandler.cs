@@ -29,11 +29,11 @@ public class DragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         Vector2 swipeVector = (eventData.position - eventData.pressPosition).normalized;
-        Debug.Log("norm + " + swipeVector);
         Vector2 dashVector = swipeVector * DASH_SPEED;
 
         if(statsScript.GasPips != 0)
         {
+            statsScript.DashDirection = swipeVector;
             StartCoroutine(Dash(dashVector));
         }
             
@@ -62,7 +62,7 @@ public class DragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         script.enabled = true;
 
         //Make this a constant in player stats
-        rigidBody.gravityScale = 3;
+        rigidBody.gravityScale = 5;
 
         //Flip dash bool back
         statsScript.gassedUp = false;

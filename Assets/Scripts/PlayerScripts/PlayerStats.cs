@@ -14,9 +14,7 @@ public class PlayerStats : MonoBehaviour
     */
     //I can't understand C# events right now, this is hopefully a temporary way to remove gaspips when one is used
     [SerializeField] private GasDrawer gasDrawerScript;
-
-    [HideInInspector]
-    public bool gassedUp = false;
+    [HideInInspector] public bool gassedUp = false;
     [SerializeField] private float _gasPips;
     public float GasPips
     {
@@ -31,6 +29,8 @@ public class PlayerStats : MonoBehaviour
 
         }
     }
+
+    public Vector2 DashDirection {get; set;}
 
     
     

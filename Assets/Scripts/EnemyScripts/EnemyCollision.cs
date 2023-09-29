@@ -8,6 +8,8 @@ public class EnemyCollision : MonoBehaviour
     PlayerStats playerStatsScript;
     PlayerCollision playerCollisionScript;
 
+    [SerializeField] Animator animator;
+
     //temp, attackPower should be in the specfifc enemy scripts
     float attackPower = 5f;
     
@@ -33,7 +35,7 @@ public class EnemyCollision : MonoBehaviour
     {
         if (playerStatsScript.gassedUp)
         {
-            Destroy(gameObject);
+            StartCoroutine(Death());
         }
         else
         {
@@ -41,5 +43,13 @@ public class EnemyCollision : MonoBehaviour
         }
             
     
+    }
+
+    IEnumerator Death()
+    {
+        Destroy(gameObject.GetComponent<Rigidbody2D>());
+        animator.SetBool("Dying", true);
+        yield return new WaitForSeconds(3);
+        Destroy(gameObject);
     }
 }

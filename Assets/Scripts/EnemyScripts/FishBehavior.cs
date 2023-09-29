@@ -18,8 +18,8 @@ public class FishBehavior : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        rigidBody.velocity = speed * Vector3.left * Time.deltaTime;
+        if(rigidBody)
+            rigidBody.velocity = speed * Vector3.left * Time.deltaTime;
 
         
     }

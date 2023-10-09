@@ -12,6 +12,8 @@ public class movement : MonoBehaviour
     public float acceleration;
     public float decceleration;
     public bool falling;
+    [SerializeField] Animator animator;
+    [SerializeField] SpriteRenderer sprite;
 
 
     public Vector2 speed;
@@ -32,6 +34,7 @@ public class movement : MonoBehaviour
         //If a touch is detected
         if (Input.touchCount > 0)
         {
+            animator.SetBool("Walking", true);
             //Is speed less than MAX_SPEED? then add acceleration to speed, if not then speed is equal to MAX_SPEED
             
             
@@ -45,6 +48,12 @@ public class movement : MonoBehaviour
             //If touch is on left side of screen, set direction to -1; if touch is on right side of the screen set direction to 1
             //direction = new Vector2(0f, 0f);
             direction.x = ((Screen.width / 2) - touchPosition.x > 0) ? -1 : 1;
+
+            if(direction.x == -1){
+                sprite.flipX = true;
+            }else if(direction.x == 1){
+                sprite.flipX = false;
+            }
 
             //Calculate intended speed
             speed = CalculateSpeed(speed, direction.x);
@@ -65,6 +74,8 @@ public class movement : MonoBehaviour
                 //Increase Speed by decceleration
                 speed.x = speed.x + decceleration;
             }
+
+            animator.SetBool("Walking", false);
 
 
                  

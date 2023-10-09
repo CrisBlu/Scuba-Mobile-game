@@ -165,6 +165,8 @@ MonoBehaviour:
   acceleration: 5
   decceleration: 7
   falling: 0
+  animator: {fileID: 3594681}
+  sprite: {fileID: 3594674}
   speed: {x: 0, y: 0}
 --- !u!50 &3594673
 Rigidbody2D:
@@ -299,7 +301,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -310,7 +312,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.6}
+  m_Size: {x: 0.8, y: 1.8}
   m_EdgeRadius: 0
 --- !u!114 &3594680
 MonoBehaviour:
@@ -950,7 +952,7 @@ GameObject:
   m_Component:
   - component: {fileID: 612292706}
   - component: {fileID: 612292705}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1113,7 +1115,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 3594673}
-  DASH_SPEED: 10
+  hero: {fileID: 3594671}
+  animator: {fileID: 3594681}
+  DASH_SPEED: 15
   script: {fileID: 3594672}
   statsScript: {fileID: 3594680}
 --- !u!114 &782813017
@@ -1704,7 +1708,7 @@ GameObject:
   - component: {fileID: 1756689966}
   - component: {fileID: 1756689968}
   - component: {fileID: 1756689967}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4505,7 +4509,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1756689962}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0

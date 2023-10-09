@@ -14,6 +14,8 @@ public class DragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
 
 
     public Rigidbody2D rigidBody;
+    public GameObject hero;
+    [SerializeField] Animator animator;
 
     //THIS IS TEMPORARY, MOVE THIS TO A DIFFERENT SCRIPT OR I'LL GUT YOU
     public int DASH_SPEED;
@@ -53,6 +55,10 @@ public class DragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         statsScript.gassedUp = true;
         statsScript.GasPips -= 1f;
 
+        //Set Hero Layer to Charging
+        hero.layer =  LayerMask.NameToLayer("Charging");
+        animator.SetBool("Dashing", true);
+
         //Set rigidBody velocity to equal dash vector for .2 seconds, then set it back to 0
         rigidBody.velocity = dashVector;
         yield return new WaitForSeconds(.2f);
@@ -66,6 +72,9 @@ public class DragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
 
         //Flip dash bool back
         statsScript.gassedUp = false;
+
+        hero.layer =  LayerMask.NameToLayer("Default");
+        animator.SetBool("Dashing", false);
         
     }
 

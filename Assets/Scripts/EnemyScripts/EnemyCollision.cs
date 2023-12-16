@@ -11,7 +11,7 @@ public class EnemyCollision : MonoBehaviour
     [SerializeField] Animator animator;
 
     //temp, attackPower should be in the specfifc enemy scripts
-    float attackPower = 5f;
+    float attackPower = 20f;
     
     
     void Start()
